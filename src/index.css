@@ -4,4 +4,32 @@
   box-sizing: border-box;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  --darkColor: rgba(86, 70, 53, 0.5);
+  --bgLightColor: rgb(158, 136, 111);
+  --lightColor: rgb(210, 192, 167);
+  --whiteCoffee: rgb(240, 230, 220);
+  --mainLightColor: rgb(143, 156, 91);
+  --mainDarkColor: rgb(136, 157, 53);
+}
+
+body {
+  background-image: url("/bg.webp");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 80vw;
+  height: 90vh;
+  background-color: rgba(158, 136, 111, 0.7);
+  border-radius: 10px;
+  backdrop-filter: blur(10px) saturate(150%);
+  border: 1px solid var(--darkColor);
 }
