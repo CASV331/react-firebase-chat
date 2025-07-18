@@ -8,8 +8,9 @@
   --bgLightColor: rgb(158, 136, 111);
   --lightColor: rgb(210, 192, 167);
   --whiteCoffee: rgb(240, 230, 220);
-  --mainLightColor: rgb(143, 156, 91);
-  --mainDarkColor: rgb(136, 157, 53);
+  --mainColor: rgba(49, 40, 1, 0.2);
+  --main2ndColor: rgba(86, 70, 43, 0.8);
+  --ownerColor: rgba(122, 151, 16, 0.5);
 }
 
 body {

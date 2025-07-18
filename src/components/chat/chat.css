@@ -1,39 +1,40 @@
 .chat {
     flex: 2;
-    border-left: 1px solid var(--lightColor);
-    border-right: 1px solid var(--lightColor);
+
     height: 100%;
     display: flex;
     flex-direction: column;
-    .top{
+
+    .top {
         display: flex;
         padding: 20px;
         align-items: center;
         justify-content: space-between;
         border-bottom: 1px solid var(--lightColor);
 
-        .user{
+        .user {
             display: flex;
             align-items: center;
             gap: 20px;
 
-            img{
+            img {
                 width: 60px;
                 height: 60px;
                 border-radius: 50%;
                 object-fit: cover;
             }
 
-            .texts{
+            .texts {
                 display: flex;
                 flex-direction: column;
                 gap: 5px;
 
-                span{
+                span {
                     font-size: 20px;
                     font-weight: bold;
                 }
-                p{
+
+                p {
                     font-size: 14px;
                     font-weight: 400;
                     color: var(--whiteCoffee);
@@ -41,18 +42,18 @@
             }
         }
 
-        .icons{
+        .icons {
             display: flex;
             gap: 20px;
 
-            img{
+            img {
                 width: 20px;
                 height: 20px;
             }
         }
     }
 
-    .center{
+    .center {
         padding: 20px;
         flex: 1;
         overflow-y: scroll;
@@ -60,78 +61,79 @@
         flex-direction: column;
         gap: 20px;
 
-        .message{
+        .message {
             max-width: 70%;
             display: flex;
             gap: 20px;
 
-            &.own{
+            &.own {
                 align-self: flex-end;
 
-                .texts{
-                    p{
-                        background-color: var(--mainLightColor);
+                .texts {
+                    p {
+                        background-color: var(--ownerColor);
                         color: white;
-                        
+
                     }
                 }
             }
 
-            img{
+            img {
                 width: 30px;
                 height: 30px;
                 border-radius: 50%;
                 object-fit: cover;
             }
-            .texts{
+
+            .texts {
                 flex: 1;
                 display: flex;
                 flex-direction: column;
                 gap: 5px;
 
-                img{
+                img {
                     width: 100%;
                     height: 300px;
                     border-radius: 10px;
                     object-fit: cover;
                 }
 
-                p{
+                p {
                     padding: 20px;
                     background-color: var(--darkColor);
                     border-radius: 10px;
                     color: white;
                 }
 
-                span{
+                span {
                     font-size: 13px;
                 }
             }
         }
     }
 
-    .bottom{
+    .bottom {
         padding: 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         border-top: 1px solid var(--lightColor);
         gap: 20px;
-        
 
-        .icons{
+
+        .icons {
             display: flex;
             gap: 20px;
 
         }
-        
-        img{
+
+        img {
             width: 20px;
             height: 20px;
             cursor: pointer;
         }
-        
-        input{
+
+        input {
             flex: 1;
             background-color: var(--darkColor);
             border: none;
@@ -142,24 +144,26 @@
             font-size: 16px;
         }
 
-        .emoji{
+        .emoji {
             position: relative;
-            
-            .picker{
+
+            .picker {
                 position: absolute;
                 bottom: 50px;
                 right: 0;
             }
         }
 
-        aside input{
+        aside input {
             background-color: rgba(86, 70, 53, 0.8);
             color: var(--whiteCoffee);
-            &::placeholder{
+
+            &::placeholder {
                 color: var(--whiteCoffee);
             }
         }
-        .sendButton{
+
+        .sendButton {
             background-color: var(--darkColor);
             color: var(--whiteCoffee);
             border: none;
