@@ -1,3 +1,4 @@
+import { supabase } from "../../lib/supaBase"
 import "./details.css"
 
 const Details = () => {
@@ -64,7 +65,7 @@ const Details = () => {
           </div>
         </div>
       <button>Block user</button>
-      <button className="Logout">Logout</button>
+      <button className="Logout" onClick={()=>supabase.auth.signOut()}>Logout</button>
       </div>
     </div>
 

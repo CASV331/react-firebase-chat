@@ -16,7 +16,6 @@ const Chat = () => {
         setText(prev => prev + e.emoji);
         setOpen(false);
     }
-    console.log(text);
     return (
         <div className='chat'>
             <div className="top">
