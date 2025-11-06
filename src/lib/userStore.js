@@ -1,43 +1,39 @@
-// import { supabase } from "./supaBase";
-// import { create } from "zustand";
+import { supabase } from "./supaBase";
+import { create } from "zustand";
 
-// export const useUserStore = create((set) => ({
-//     currentUser: null,
-//     isLoading: true,
-//     fetchUserInfo: async (uid) => {
-        
-//         if(!uid) return set({ currentUser:null, isLoading: false })
+export const useUserStore = create((set) => ({
+    currentUser: null,
+    isLoading: true,
+    fetchUserInfo: async (uid) => {
+        console.log("fetchUserInfo ejecutando con uid: ", uid)
 
-//         try {
-//             const { data, error } = await supabase
-//                 .from('users')
-//                 .select('*')
-//                 .eq('id', uid)
-//                 .single()
+        if(!uid) {
+            console.log("No se recibio uid, abortando")
+            return set({ currentUser:null, isLoading: false })
+        }
+        try {
+            console.log("Entrando al try con uid: ", uid)
+            const { data, error } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('id', uid)
+                .single()
+                console.log(data, error)
+            if (error || !data){
+                console.log("Error fetching user info:", error)
+                set({ currentUser: null, isLoading: false })
+                return
+            }
+            console.log("Usuario encontrado:", data);
+            sessionStorage.setItem("user", JSON.stringify(data));
+            set({ currentUser: data, isLoading: false });
+            
 
-//             if (error || !data){
-//                 console.log("Error fetching user info:", error)
-//                 set({ currentUser: null, isLoading: false })
-//                 return
-//             }
-
-//             // Save on session storage
-//             sessionStorage.setItem("user", JSON.stringify(data));
-//             set({currentUser: data, isLoading:false})
-
-//         } catch (error) {
-//             console.log(error)
-//             return set({ currentUser:null, isLoading: false})
-//         }
-//     },
-
-//     loadUserFromStorage: () => {
-//         const storedUser = sessionStorage.getItem("user");
-//         if(storedUser) {
-//             set({ currentUser: JSON.parse(storedUser), isLoading: false });
-//         } else {
-//             set({ currentUser: null, isLoading: false });
-//         }
-//     }
+        } catch (error) {
+            console.log(error)
+            return set({ currentUser:null, isLoading: false})
+        }
+    },
+    }
     
-// }));
+));

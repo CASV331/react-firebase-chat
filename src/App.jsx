@@ -8,11 +8,9 @@ import { supabase } from "./lib/supaBase"
 import { useUserStore } from "./lib/userStore"
 const App = () => {
   
-  const {currentUser, isLoading, fetchUserInfo, loadUserFromStorage} = useUserStore()
+  const {currentUser, isLoading, fetchUserInfo} = useUserStore()
   
   useEffect(() => {
-    // Load user from session storage
-    loadUserFromStorage();
 
     // Listen for session changes
     const {data: authListener} = supabase.auth.onAuthStateChange(
@@ -27,7 +25,7 @@ const App = () => {
       
     };
 
-  },[fetchUserInfo, loadUserFromStorage])
+  },[fetchUserInfo, isLoading])
 
   if (isLoading) return <div className="loading">Loading...</div>
 

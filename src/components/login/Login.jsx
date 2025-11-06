@@ -21,34 +21,33 @@ const Login = () => {
     }}
 
 
-// const handleLogin = async (e) => {
-//   e.preventDefault();
-//   setLoading(true);
-//   const formData = new FormData(e.target);
-//   const { email, password } = Object.fromEntries(formData);
-//   console.log("Antes del login")
-//   try {
-//     console.log("entrando a la promesa")
-//     const {
-//       data: { user, session },
-//       error,
-//     } = await supabase.auth.signInWithPassword({ email, password });
+    const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const formData = new FormData(e.target);
+    const { email, password } = Object.fromEntries(formData);
+    console.log("Antes del login")
+    try {
+        console.log("entrando a la promesa")
+        const {
+        data: { user, session },
+        error,
+        } = await supabase.auth.signInWithPassword({ email, password });
 
-//     if (error) {
-//       console.error("Error de login:", error.message);
-//     } else {
-//       console.log("Usuario logueado:", user);
-//       console.log("Session token:", session?.access_token);
-//       console.log("Refresh token:", session?.refresh_token);
-//     }
-//   } catch (err) {
-//     console.log("Error de promesa")
-//     console.error("Excepción en login:", err);
-//   } finally {
-//     setLoading(false);
-//   }
-//   console.log("Despues del login")
-// };
+        if (error) {
+        console.error("Error de login:", error.message);
+        } else {
+        console.log("Usuario logueado:", user);
+        console.log("Session token:", session?.access_token);
+        console.log("Refresh token:", session?.refresh_token);
+        }
+    } catch (err) {
+        console.log("Error de promesa")
+        console.error("Excepción en login:", err);
+    }
+    setLoading(false);
+    console.log("Despues del login")
+    };
 
 
 
@@ -64,6 +63,7 @@ const Login = () => {
                 password,
             });
             if (authError) throw authError;
+
             const userId = authData.user.id;
 
             // Upload avatar if exists
@@ -72,7 +72,7 @@ const Login = () => {
                 const fileExt = avatar.file.name.split('.').pop();
                 const filePath = `avatars/${userId}.${fileExt}`;
 
-                const { data: uploadData, error: uploadError } = await supabase.storage
+                const {error: uploadError } = await supabase.storage
                     .from('avatars')
                     .upload(filePath, avatar.file, {
                         cacheControl: '3600',
@@ -85,19 +85,20 @@ const Login = () => {
                     .getPublicUrl(filePath);
 
                 avatarUrl = publicUrlData.publicUrl;
+                console.log(avatarUrl)
             }
 
             // Insert user profile in 'users' table
             const {error: profileError } = await supabase
-                .from('users')
-                .insert([
+                .from('profiles')
+                .update([
                     { id: userId, username, avatar_url: avatarUrl }
                 ]);
 
             if (profileError) throw profileError;
             toast.success("Account created successfully");
         } catch (err) {
-            toast.error("Registration failed. Please try again." + err.message);
+            toast.error("Registration failed. Please try again. " + err.message);
         } finally {
             setLoading(false);
         }
@@ -108,7 +109,7 @@ const Login = () => {
     <div className="login">
         <div className="item">
             <h2>Welcome back</h2>
-            <form >
+            <form onSubmit={handleLogin} >
                 <input type="email" placeholder="Email" name="email" />
                 <input type="password" placeholder="Password" name="password" />
                 <button disabled={loading}>{loading ? "Loading...":"Sign in"}</button>
