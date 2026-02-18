@@ -19,8 +19,13 @@ export const useUserStore = create((set) => ({
                 .eq('id', uid)
                 .single()
                 console.log(data, error)
-            if (error || !data){
+            if (error){
                 console.log("Error fetching user info:", error)
+                set({ currentUser: null, isLoading: false })
+                return
+            }
+            if (!data) {
+                console.log("No se encontró el usuario con id: ", uid)
                 set({ currentUser: null, isLoading: false })
                 return
             }
@@ -30,6 +35,7 @@ export const useUserStore = create((set) => ({
             
 
         } catch (error) {
+            console.log("Error en fetchUserInfo:", error)
             console.log(error)
             return set({ currentUser:null, isLoading: false})
         }

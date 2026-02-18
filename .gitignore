@@ -22,3 +22,22 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Node
+node_modules/
+Frontend/node_modules/
+Backend/node_modules/
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment
+.env
+Frontend/.env
+Backend/.env
+
+# Build
+Frontend/dist/
+Backend/dist/

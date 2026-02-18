@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id      String  @id @default(uuid())
+  email   String  @unique
+  usename String  @unique
+  password String
+  avatarUrl String? @map("avatar_url")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  sentMessages  Message[]   @relation("sender")
+  conversations UserConversation[]
+
+  @@map("users")
+}
+
+model Conversation {
+  id      String    @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+
+  participants  UserConversation[]
+  messages      Message[]
+
+  @@map("conversations")
+}
+
+model UserConversation {
+  userId    String @map("user_id")
+  conversationId String @map("conversation_id")
+
+  user      user      @relation(fields: [useId], references: [id], onDelete: Cascade)
+  conversation  Conversation  @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@id([userId, ConversationId])
+  @@map("user_conversations")
+}
+
+model Message {
+  id        String    @id @default(uuid())
+  content   String
+  senderId  String    @map("sender_id")
+  conversationId  String  @map("conversation_id")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  sender    User    @relation("sender", fields: [senderId], references: [id], onDelete: Cascade)
+  conversation  Conversation  @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+

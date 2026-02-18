@@ -91,7 +91,7 @@ const Login = () => {
             // Insert user profile in 'users' table
             const {error: profileError } = await supabase
                 .from('profiles')
-                .update([
+                .insert([
                     { id: userId, username, avatar_url: avatarUrl }
                 ]);
 
